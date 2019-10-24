@@ -108,11 +108,11 @@ if developermode == 0:
     if autobrightness == 1: #temporary method
         currenthour = int(time.strftime("%-H")) #hour as decimal (24hour)
         if currenthour < 7 or currenthour > 21: #earlier than 7am and later than 9pm -> dim screen on start
-            print "dim"
+            print("dim")
             os.system("sudo echo 15 > /sys/class/backlight/rpi_backlight/brightness")  # sets screen brightness to ~ 10%
 
         if currenthour >= 7 and currenthour <= 20: #later than 7am and before 8pm -> full bright on start
-            print "bright"
+            print("bright")
             os.system("sudo echo 175 > /sys/class/backlight/rpi_backlight/brightness")  # sets screen brightness to ~ 100%
 
 #_____________________________________________________________
@@ -206,7 +206,7 @@ if AccelPresent == 1:
         from adxl345 import ADXL345
         adxl345 = ADXL345()
     except:
-        print "Failed to initialize accelerometer."
+        print("Failed to initialize accelerometer.")
         AccelPresent = 0
 
 if TempProbePresent == 1:
@@ -217,7 +217,7 @@ if TempProbePresent == 1:
         device_folder = glob.glob(base_dir + '28*')[0]
         device_file = device_folder + '/w1_slave'
     except:
-        print "Failed to initialize temperature sensor."
+        print("Failed to initialize temperature sensor.")
         TempProbePresent = 0
 
 global temp_f #make this var global for use in messages
@@ -438,7 +438,7 @@ def HotKey1(channel):
             try:
                 os.system('dbus-send --system --type=method_call --dest=org.bluez /org/bluez/hci0/dev_'+bluetoothdevicemac+'/player0 org.bluez.MediaPlayer1.Next')
             except:
-                print "can't next"
+                print("can't next")
     if hotkey1string == "Seek Down":
         if BLUETOOTHON == 0:
             Clock.schedule_once(seekdown_callback)
@@ -447,7 +447,7 @@ def HotKey1(channel):
             try:
                 os.system('dbus-send --system --type=method_call --dest=org.bluez /org/bluez/hci0/dev_'+bluetoothdevicemac+'/player0 org.bluez.MediaPlayer1.Previous')
             except:
-                print "can't prev"
+                print("can't prev")
     if hotkey1string == "Garage":
         Clock.schedule_once(garage_callback)
         Clock.schedule_once(garage_callback,.1)
@@ -497,7 +497,7 @@ def HotKey2(channel):
             try:
                 os.system('dbus-send --system --type=method_call --dest=org.bluez /org/bluez/hci0/dev_' + bluetoothdevicemac + '/player0 org.bluez.MediaPlayer1.Next')
             except:
-                print "can't next"
+                print("can't next")
     if hotkey2string == "Seek Down":
         if BLUETOOTHON == 0:
             Clock.schedule_once(seekdown_callback)
@@ -506,7 +506,7 @@ def HotKey2(channel):
             try:
                 os.system('dbus-send --system --type=method_call --dest=org.bluez /org/bluez/hci0/dev_' + bluetoothdevicemac + '/player0 org.bluez.MediaPlayer1.Previous')
             except:
-                print "can't prev"
+                print("can't prev")
     if hotkey2string == "Garage":
         Clock.schedule_once(garage_callback)
         Clock.schedule_once(garage_callback,.1)
@@ -1350,14 +1350,14 @@ class MainApp(App):
                 #maybe try this: subprocess.call('sudo shutdown now', shell=True)
 
             except:
-                print "can't play"
+                print("can't play")
 
     def bluetoothpause_callback_schedge(obj):
         if BLUETOOTHON == 1:
             try:
                 os.system('dbus-send --system --type=method_call --dest=org.bluez /org/bluez/hci0/dev_'+bluetoothdevicemac+'/player0 org.bluez.MediaPlayer1.Pause')
             except:
-                print "can't pause"
+                print("can't pause")
 
     def seekup_callback_schedge(obj):
         if BLUETOOTHON == 0:
@@ -1367,7 +1367,7 @@ class MainApp(App):
             try:
                 os.system('dbus-send --system --type=method_call --dest=org.bluez /org/bluez/hci0/dev_'+bluetoothdevicemac+'/player0 org.bluez.MediaPlayer1.Next')
             except:
-                print "can't next"
+                print("can't next")
 
     def seekdown_callback_schedge(obj):
         if BLUETOOTHON == 0:
@@ -1377,7 +1377,7 @@ class MainApp(App):
             try:
                 os.system('dbus-send --system --type=method_call --dest=org.bluez /org/bluez/hci0/dev_'+bluetoothdevicemac+'/player0 org.bluez.MediaPlayer1.Previous')
             except:
-                print "can't prev"
+                print("can't prev")
 
     def aux_callback_schedge(obj):
         Clock.schedule_once(aux_callback)
@@ -1785,11 +1785,11 @@ class MainApp(App):
                 try:
                     os.system('sudo rfcomm bind /dev/rfcomm1 00:1D:A5:16:3E:ED')
                 except:
-                    print "OBDII device already connected"
+                    print("OBDII device already connected")
                 try:
                     connection = obd.OBD() # auto-connects to USB or RF port
                 except:
-                    print "can't connect to OBDII device - make sure it is connected"
+                    print("can't connect to OBDII device - make sure it is connected")
                 cmd_RPM = obd.commands.RPM # select RPM OBD command
                 cmd_SPEED = obd.commands.SPEED # select SPEED OBD command
                 cmd_CoolantTemp = obd.commands.COOLANT_TEMP # select CoolantTemp OBD command
