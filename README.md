@@ -16,6 +16,8 @@ Check out my website for more info: http://joelzeller.wixsite.com/copilot
 	pip install kivy-garden
 	
 	garden install recycleview
+	
+	garden install mapview --upgrade
 
 -	Python Version 2.7.0 is recommended
 
